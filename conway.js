@@ -3,7 +3,7 @@
   Opal.dynamic_require_severity = "error";
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$attr_reader', '$canvas', '$set_height', '$set_width', '$new', '$times', '$move_to', '$*', '$line_to', '$vertical_lines', '$horizontal_lines', '$stroke_style', '$stroke', '$private', '$floor', '$/', '$draw']);
+  Opal.add_stubs(['$attr_reader', '$canvas', '$set_height', '$set_width', '$new', '$times', '$move_to', '$*', '$line_to', '$columns', '$rows', '$stroke_style', '$stroke', '$private', '$floor', '$/', '$draw']);
   (function($base) {
     var self = $module($base, 'Window');
 
@@ -180,23 +180,23 @@
 
     var def = self.$$proto, $scope = self.$$scope;
 
-    def.canvas = def.context = nil;
+    def.context = nil;
     def.$initialize = function() {
-      var self = this;
+      var self = this, canvas = nil;
 
-      self.canvas = $scope.get('Canvas').$new($hash2(["id", "height", "width"], {"id": "conwayCanvas", "height": (($scope.get('Window')).$$scope.get('Height')), "width": (($scope.get('Window')).$$scope.get('Width'))}));
-      return self.context = $scope.get('Context2D').$new($hash2(["canvas"], {"canvas": self.canvas}));
+      canvas = $scope.get('Canvas').$new($hash2(["id", "height", "width"], {"id": "conwayCanvas", "height": (($scope.get('Window')).$$scope.get('Height')), "width": (($scope.get('Window')).$$scope.get('Width'))}));
+      return self.context = $scope.get('Context2D').$new($hash2(["canvas"], {"canvas": canvas}));
     };
 
     def.$draw = function() {
       var $a, $b, TMP_2, $c, TMP_3, self = this;
 
-      ($a = ($b = self.$vertical_lines()).$times, $a.$$p = (TMP_2 = function(x){var self = TMP_2.$$s || this;
+      ($a = ($b = self.$columns()).$times, $a.$$p = (TMP_2 = function(x){var self = TMP_2.$$s || this;
         if (self.context == null) self.context = nil;
 if (x == null) x = nil;
       self.context.$move_to($hash2(["x", "y"], {"x": (($scope.get('Cell')).$$scope.get('Width'))['$*'](x), "y": 0}));
         return self.context.$line_to($hash2(["x", "y"], {"x": (($scope.get('Cell')).$$scope.get('Width'))['$*'](x), "y": (($scope.get('Window')).$$scope.get('Height'))}));}, TMP_2.$$s = self, TMP_2), $a).call($b);
-      ($a = ($c = self.$horizontal_lines()).$times, $a.$$p = (TMP_3 = function(y){var self = TMP_3.$$s || this;
+      ($a = ($c = self.$rows()).$times, $a.$$p = (TMP_3 = function(y){var self = TMP_3.$$s || this;
         if (self.context == null) self.context = nil;
 if (y == null) y = nil;
       self.context.$move_to($hash2(["x", "y"], {"x": 0, "y": (($scope.get('Cell')).$$scope.get('Width'))['$*'](y)}));
@@ -207,17 +207,17 @@ if (y == null) y = nil;
 
     self.$private();
 
-    def.$vertical_lines = function() {
+    def.$columns = function() {
       var self = this;
 
       return ((($scope.get('Window')).$$scope.get('Width'))['$/']((($scope.get('Cell')).$$scope.get('Width')))).$floor();
     };
 
-    return (def.$horizontal_lines = function() {
+    return (def.$rows = function() {
       var self = this;
 
       return ((($scope.get('Window')).$$scope.get('Height'))['$/']((($scope.get('Cell')).$$scope.get('Height')))).$floor();
-    }, nil) && 'horizontal_lines';
+    }, nil) && 'rows';
   })(self, null);
   return $scope.get('Grid').$new().$draw();
 })(Opal);

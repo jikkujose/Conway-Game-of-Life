@@ -59,21 +59,21 @@ end
 
 class Grid
   def initialize
-    @canvas = Canvas.new(
+    canvas = Canvas.new(
       id: 'conwayCanvas',
       height: Window::Height,
       width: Window::Width
     )
-    @context = Context2D.new(canvas: @canvas)
+    @context = Context2D.new(canvas: canvas)
   end
 
   def draw
-    vertical_lines.times do |x|
+    columns.times do |x|
       @context.move_to(x: Cell::Width * x, y: 0)
       @context.line_to(x: Cell::Width * x, y: Window::Height)
     end
 
-    horizontal_lines.times do |y|
+    rows.times do |y|
       @context.move_to(x: 0, y: Cell::Width * y)
       @context.line_to(x: Window::Width, y: Cell::Width * y)
     end
@@ -84,11 +84,11 @@ class Grid
 
   private
 
-  def vertical_lines
+  def columns
     (Window::Width / Cell::Width).floor
   end
 
-  def horizontal_lines
+  def rows
     (Window::Height / Cell::Height).floor
   end
 end
