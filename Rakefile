@@ -1,5 +1,5 @@
 require 'opal'
-require 'opal-jquery'
+# require 'opal-jquery'
 
 desc "Compile Ruby to JS"
 task :build do
