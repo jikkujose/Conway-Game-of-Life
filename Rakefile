@@ -1,13 +1,12 @@
 require 'opal'
 require 'opal-jquery'
 
-desc "Build our app to conway.js"
+desc "Compile Ruby to JS"
 task :build do
-  # env = Opal::Environment.new
-  # env.append_path "app"
+  env = Sprockets::Environment.new
+  env.append_path "app"
 
-  File.open("conway.js", "w+") do |out|
-    js = Opal.compile File.new("app/conway.rb").read
-    out.write js
+  File.open("app.js", "w+") do |out|
+    out << env["application"].to_s
   end
 end
