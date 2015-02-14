@@ -43,4 +43,3 @@ class Grid
 end
 
 Grid.new(canvas_id: 'conwayCanvas').draw
-puts "Jiks"
