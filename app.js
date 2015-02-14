@@ -190,10 +190,19 @@ Opal.modules["conway/app.rb"] = function(Opal) {
     var def = self.$$proto, $scope = self.$$scope;
 
     def.context = nil;
-    def.$initialize = function() {
-      var self = this, canvas = nil;
+    def.$initialize = function($kwargs) {
+      var self = this, canvas = nil, canvas_id = nil;
 
-      canvas = $scope.get('Canvas').$new($hash2(["id", "height", "width"], {"id": "conwayCanvas", "height": (($scope.get('Window')).$$scope.get('Height')), "width": (($scope.get('Window')).$$scope.get('Width'))}));
+      if ($kwargs == null) {
+        $kwargs = $hash2([], {});
+      }
+      if (!$kwargs.$$is_hash) {
+        throw Opal.ArgumentError.$new('expecting keyword args');
+      }
+      if ((canvas_id = $kwargs.smap['canvas_id']) == null) {
+        canvas_id = ""
+      }
+      canvas = $scope.get('Canvas').$new($hash2(["id", "height", "width"], {"id": canvas_id, "height": (($scope.get('Window')).$$scope.get('Height')), "width": (($scope.get('Window')).$$scope.get('Width'))}));
       return self.context = $scope.get('Context2D').$new($hash2(["canvas"], {"canvas": canvas}));
     };
 
@@ -228,7 +237,7 @@ if (y == null) y = nil;
       return ((($scope.get('Window')).$$scope.get('Height'))['$/']((($scope.get('Cell')).$$scope.get('Height')))).$floor();
     }, nil) && 'rows';
   })(self, null);
-  $scope.get('Grid').$new().$draw();
+  $scope.get('Grid').$new($hash2(["canvas_id"], {"canvas_id": "conwayCanvas"})).$draw();
   return self.$puts("Jiks");
 };
 
@@ -238,8 +247,6 @@ if (y == null) y = nil;
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice;
 
   Opal.add_stubs(['$require']);
-  return self.$require("conway/app.rb")
+  self.$require("conway/helpers.rb");
+  return self.$require("conway/app.rb");
 })(Opal);
-
-//# sourceMappingURL=application.map
-;

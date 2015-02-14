@@ -7,9 +7,9 @@ module Cell
 end
 
 class Grid
-  def initialize
+  def initialize(canvas_id: "")
     canvas = Canvas.new(
-      id: 'conwayCanvas',
+      id: canvas_id,
       height: Window::Height,
       width: Window::Width
     )
@@ -42,5 +42,5 @@ class Grid
   end
 end
 
-Grid.new.draw
+Grid.new(canvas_id: 'conwayCanvas').draw
 puts "Jiks"
