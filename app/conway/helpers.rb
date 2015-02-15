@@ -10,7 +10,11 @@ class Context
     @context = `#{canvas.canvas}.getContext(#{type})`
   end
 
-  def move_to(x: 0, y: 0)
+  def move_to(x: 0, y: 0, rect: nil)
+    unless rect.nil?
+      x, y, width, height = rect.to_args
+    end
+
     `#{@context}.moveTo(#{x}, #{y})`
   end
 
@@ -22,7 +26,11 @@ class Context
     `#{@context}.stroke()`
   end
 
-  def line_to(x: 0, y: 0)
+  def line_to(x: 0, y: 0, rect: nil)
+    unless rect.nil?
+      x, y, width, height = rect.to_args
+    end
+
     `#{@context}.lineTo(#{x}, #{y})`
   end
 
@@ -30,11 +38,19 @@ class Context
     `#{@context}.fillStyle = #{color}`
   end
 
-  def fill_rect(x: 0, y: 0, width: 0, height: 0)
+  def fill_rect(x: 0, y: 0, width: 0, height: 0, rect: nil)
+    unless rect.nil?
+      x, y, width, height = rect.to_args
+    end
+
     `#{@context}.fillRect(#{x}, #{y}, #{width}, #{height})`
   end
 
-  def clear_rect(x: 0, y: 0, width: 0, height: 0)
+  def clear_rect(x: 0, y: 0, width: 0, height: 0, rect: nil)
+    unless rect.nil?
+      x, y, width, height = rect.to_args
+    end
+
     `#{@context}.clearRect(#{x}, #{y}, #{width}, #{height})`
   end
 end
@@ -82,5 +98,14 @@ class Mouse
     end
 
     [x, y]
+  end
+end
+
+class Rect < OpenStruct
+end
+
+Rect.class_eval do
+  def to_args
+    [x, y, width, height]
   end
 end

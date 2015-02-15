@@ -13,6 +13,21 @@ module Cell
   def self.y(y_coordinate)
     (y_coordinate / Height).floor
   end
+
+  def self.rect(x: x, y: y)
+    Rect.new(x: x, y: y, width: Width, height: Height)
+  end
+
+  class Rect < ::Rect
+    def initialize(x: 0, y: 0)
+      super(
+      x: Width * x,
+      y: Height * y,
+      width: Width,
+      height: Height
+      )
+    end
+  end
 end
 
 class Grid
@@ -27,6 +42,13 @@ class Grid
     @context.stroke_style(color: Cell::StrokeColor)
     @context.fill_style(color: Cell::FillColor)
   end
+
+  def run
+    draw
+    add_event_listeners
+  end
+
+  private
 
   def draw
     columns.times do |x|
@@ -45,21 +67,11 @@ class Grid
   end
 
   def fill_cell(x, y)
-    @context.fill_rect(
-      x: Cell::Width * x,
-      y: Cell::Height * y,
-      width: Cell::Width,
-      height: Cell::Height
-    )
+    @context.fill_rect rect: Cell::Rect.new(x: x, y: y)
   end
 
   def clear_cell(x, y)
-    @context.clear_rect(
-      x: Cell::Width * x,
-      y: Cell::Height * y,
-      width: Cell::Width,
-      height: Cell::Height
-    )
+    @context.clear_rect rect: Cell::Rect.new(x: x, y: y)
   end
 
   def columns
