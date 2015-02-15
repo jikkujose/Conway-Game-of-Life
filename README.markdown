@@ -12,6 +12,11 @@
 
 * [Ruby Opal](https://opalrb.org)
 
+## Instructions
+
+* `bundle install`
+* spawn a server at the root directory to see the page
+
 ## References
 
 * [SitePoint tutorial on Opal](http://www.sitepoint.com/opal-ruby-browser-game-life/)
