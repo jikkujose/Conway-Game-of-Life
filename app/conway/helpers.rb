@@ -1,6 +1,4 @@
-# require 'opal'
-
-module Window
+module ConwayWindow
   Height = `$(window).height()`
   Width = `$(window).width()`
 end
@@ -67,5 +65,22 @@ end
 class Context2D < Context
   def initialize(canvas: "")
     super(canvas: canvas, type: "2d")
+  end
+end
+
+class Mouse
+  def self.cursor(event)
+    if (event.page_x && event.page_y)
+      x = event.page_x;
+      y = event.page_y;
+    else
+      doc = Opal.Document[0]
+      x = event[:clientX] + doc.scrollLeft +
+        doc.documentElement.scrollLeft;
+      y = event[:clientY] + doc.body.scrollTop +
+        doc.documentElement.scrollTop;
+    end
+
+    [x, y]
   end
 end

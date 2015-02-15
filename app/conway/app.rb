@@ -1,18 +1,26 @@
 require 'conway/helpers.rb'
 
 module Cell
-  Height = 30
+  Height = 80
   Width = Height
-  StrokeColor = "#23eeee"
+  StrokeColor = "#256ba6"
   FillColor = StrokeColor
+
+  def self.x(x_coordinate)
+    (x_coordinate / Width).floor
+  end
+
+  def self.y(y_coordinate)
+    (y_coordinate / Height).floor
+  end
 end
 
 class Grid
   def initialize(canvas_id: "")
     @canvas = Canvas.new(
       id: canvas_id,
-      height: Window::Height,
-      width: Window::Width
+      height: ConwayWindow::Height,
+      width: ConwayWindow::Width
     )
 
     @context = Context2D.new(canvas: @canvas)
@@ -23,12 +31,12 @@ class Grid
   def draw
     columns.times do |x|
       @context.move_to(x: Cell::Width * x, y: 0)
-      @context.line_to(x: Cell::Width * x, y: Window::Height)
+      @context.line_to(x: Cell::Width * x, y: ConwayWindow::Height)
     end
 
     rows.times do |y|
       @context.move_to(x: 0, y: Cell::Height * y)
-      @context.line_to(x: Window::Width, y: Cell::Height * y)
+      @context.line_to(x: ConwayWindow::Width, y: Cell::Height * y)
     end
 
     @context.stroke
@@ -54,24 +62,25 @@ class Grid
     )
   end
 
-  # private
-
   def columns
-    (Window::Width / Cell::Width).ceil
+    Cell.x ConwayWindow::Width
   end
 
   def rows
-    (Window::Height / Cell::Height).floor
+    Cell.y ConwayWindow::Height
   end
 
   def add_event_listeners
-    Element.find("#conwayCanvas").on :click do |event|
-      puts "Jikku Jso"
-      fill_cell 5, 11
+    @canvas.on :click do |event|
+      x, y = Mouse.cursor event
+
+      fill_cell Cell.x(x), Cell.y(y)
+    end
+
+    @canvas.on :dblclick do |event|
+      x, y = Mouse.cursor event
+
+      clear_cell Cell.x(x), Cell.y(y)
     end
   end
 end
-
-grid = Grid.new(canvas_id: 'conwayCanvas')
-grid.draw
-grid.add_event_listeners
