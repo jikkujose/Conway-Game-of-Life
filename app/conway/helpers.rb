@@ -27,9 +27,7 @@ class Context
   end
 
   def line_to(x: 0, y: 0, rect: nil)
-    unless rect.nil?
-      x, y, width, height = rect.to_args
-    end
+    x, y, width, height = rect.to_args unless rect.nil?
 
     `#{@context}.lineTo(#{x}, #{y})`
   end
@@ -39,17 +37,13 @@ class Context
   end
 
   def fill_rect(x: 0, y: 0, width: 0, height: 0, rect: nil)
-    unless rect.nil?
-      x, y, width, height = rect.to_args
-    end
+    x, y, width, height = rect.to_args unless rect.nil?
 
     `#{@context}.fillRect(#{x}, #{y}, #{width}, #{height})`
   end
 
   def clear_rect(x: 0, y: 0, width: 0, height: 0, rect: nil)
-    unless rect.nil?
-      x, y, width, height = rect.to_args
-    end
+    x, y, width, height = rect.to_args unless rect.nil?
 
     `#{@context}.clearRect(#{x}, #{y}, #{width}, #{height})`
   end
