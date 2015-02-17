@@ -13,4 +13,9 @@ task :build do
   end
 end
 
+desc "Test Algorithm"
+task :test do
+  puts `ruby './test/conway/algorithm.rb'`
+end
+
 task :default => :build
