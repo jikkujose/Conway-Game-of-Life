@@ -11,9 +11,7 @@ class Context
   end
 
   def move_to(x: 0, y: 0, rect: nil)
-    unless rect.nil?
-      x, y, width, height = rect.to_args
-    end
+    x, y, width, height = rect.to_args unless rect.nil?
 
     `#{@context}.moveTo(#{x}, #{y})`
   end

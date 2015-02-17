@@ -16,6 +16,8 @@
 
 * `bundle install`
 * spawn a server at the root directory to see the page
+* Click the cells to create initial state
+* Press enter to change to next state
 
 ## References
 
